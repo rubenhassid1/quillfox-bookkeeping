@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quillfox Bookkeeping — books done, every month</title>
+  <meta name="description" content="Monthly bookkeeping for small businesses. Clean books, one simple price, and a real person who answers. (Fictional business built for the Claude Code For Dummies guide.)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3d2e'/%3E%3Cpath d='M9 22c3-9 9-13 15-13-2 6-6 11-15 13z' fill='%23f3c87a'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --surface: #fffdf9;
+      --ink: #1d231f;
+      --muted: #5b645e;
+      --line: #e4ddd1;
+      --brand: #1f3d2e;
+      --brand-ink: #f7f3ec;
+      --accent: #c9822b;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 17px/1.6 Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .demo-note {
+      background: var(--brand); color: var(--brand-ink); font-size: 13px; text-align: center; padding: 8px 16px;
+    }
+    .demo-note a { color: #f3c87a; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 21px; text-decoration: none; }
+    .logo svg { width: 30px; height: 30px; }
+    nav a { text-decoration: none; color: var(--muted); margin-left: 22px; font-size: 15px; }
+    nav a:hover { color: var(--ink); }
+    .btn {
+      display: inline-block; background: var(--brand); color: var(--brand-ink); text-decoration: none;
+      padding: 14px 22px; border-radius: 999px; font-weight: 600; font-size: 16px; border: 0; cursor: pointer;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover { background: #173024; transform: translateY(-1px); }
+    .btn.ghost { background: transparent; color: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
+    .hero { padding: 72px 0 88px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+    .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.12; margin: 0; }
+    h1 { font-size: clamp(40px, 6vw, 64px); letter-spacing: -.02em; margin: 14px 0 20px; }
+    h2 { font-size: clamp(30px, 4vw, 42px); letter-spacing: -.01em; }
+    .lead { font-size: 20px; color: var(--muted); max-width: 34ch; margin: 0 0 32px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px;
+      box-shadow: 0 30px 60px -30px rgba(31,61,46,.25);
+    }
+    .hero-card .row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+    .hero-card .row:last-child { border-bottom: 0; }
+    .hero-card .ok { color: var(--brand); font-weight: 600; }
+    .hero-card small { color: var(--muted); display: block; margin-bottom: 8px; }
+    section { padding: 88px 0; }
+    .section-head { max-width: 620px; margin-bottom: 44px; }
+    .section-head p { color: var(--muted); font-size: 18px; margin: 14px 0 0; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+    .card h3 { font-size: 23px; margin-bottom: 8px; }
+    .price { font-family: Fraunces, Georgia, serif; font-size: 34px; margin: 18px 0 4px; }
+    .price span { font-family: Inter, sans-serif; font-size: 15px; color: var(--muted); }
+    .card ul { padding-left: 18px; color: var(--muted); margin: 14px 0 0; }
+    .card.featured { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+    .card.featured ul, .card.featured .price span { color: #cfd8d2; }
+    .tag { display: inline-block; font-size: 12px; font-weight: 600; background: #f3c87a; color: var(--brand); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
+    .steps { counter-reset: step; }
+    .step { position: relative; padding-top: 56px; }
+    .step::before {
+      counter-increment: step; content: counter(step); position: absolute; top: 0; left: 0;
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--surface); border: 1px solid var(--line); font-family: Fraunces, serif; font-weight: 600;
+    }
+    .step p, .quote p { color: var(--muted); margin: 8px 0 0; }
+    .quote { font-size: 18px; }
+    .quote p { color: var(--ink); font-size: 19px; }
+    .quote footer { margin-top: 16px; color: var(--muted); font-size: 14px; }
+    .book { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: start; }
+    form { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 30px; }
+    label { display: block; font-weight: 500; font-size: 15px; margin: 0 0 6px; }
+    input, select, textarea {
+      width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--line);
+      background: #fff; color: var(--ink); margin-bottom: 18px;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+    textarea { min-height: 96px; resize: vertical; }
+    .hp { position: absolute; left: -5000px; }
+    .form-msg { margin: 14px 0 0; font-size: 15px; min-height: 1.2em; }
+    .form-msg.ok { color: var(--brand); font-weight: 600; }
+    .form-msg.err { color: #a2332b; }
+    details { border-top: 1px solid var(--line); padding: 20px 0; }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary { cursor: pointer; font-weight: 600; font-size: 18px; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; float: right; color: var(--accent); font-size: 22px; line-height: 1; }
+    details[open] summary::after { content: "–"; }
+    details p { color: var(--muted); margin: 12px 0 0; }
+    .site-footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+    .site-footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    @media (max-width: 860px) {
+      .hero, .book { grid-template-columns: 1fr; gap: 36px; }
+      .hero { padding: 40px 0 64px; }
+      .grid3 { grid-template-columns: 1fr; }
+      nav a:not(.btn) { display: none; }
+      section { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-note">Fictional business, built with Claude Code for the <em>Claude Code For Dummies</em> guide. Nothing here is for sale.</div>
+
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#top" aria-label="Quillfox Bookkeeping home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1f3d2e"/><path d="M9 22c3-9 9-13 15-13-2 6-6 11-15 13z" fill="#f3c87a"/></svg>
+        Quillfox
+      </a>
+      <nav>
+        <a href="#pricing">Pricing</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn" href="#book">Book a call</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Bookkeeping for small businesses</div>
+          <h1>Your books, done. Every month.</h1>
+          <p class="lead">Clean numbers by the 5th, one flat price, and a real person who answers your email the same day.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#book">Book a free 15-minute call</a>
+            <a class="btn ghost" href="#pricing">See pricing</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Example monthly close">
+          <small>September close · example client</small>
+          <div class="row"><span>Bank &amp; cards reconciled</span><span class="ok">Done</span></div>
+          <div class="row"><span>Receipts matched</span><span class="ok">312 / 312</span></div>
+          <div class="row"><span>Profit &amp; loss sent</span><span class="ok">Oct 4</span></div>
+          <div class="row"><span>Questions for you</span><span class="ok">2</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Three plans. No surprises.</h2>
+        <p>Pick by monthly spend. Switch any time.</p>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <h3>Starter</h3>
+          <div>Under $20k a month in expenses</div>
+          <div class="price">$290 <span>/ month</span></div>
+          <ul><li>Monthly reconciliation</li><li>Profit &amp; loss + balance sheet</li><li>Email support</li></ul>
+        </div>
+        <div class="card featured">
+          <span class="tag">Most popular</span>
+          <h3>Growth</h3>
+          <div>$20k–$100k a month</div>
+          <div class="price">$590 <span>/ month</span></div>
+          <ul><li>Everything in Starter</li><li>Payroll &amp; sales tax filing</li><li>A 30-minute review call each month</li></ul>
+        </div>
+        <div class="card">
+          <h3>Catch-up</h3>
+          <div>Books behind? We fix the past.</div>
+          <div class="price">$900 <span>/ one-time</span></div>
+          <ul><li>Up to 12 months cleaned up</li><li>Ready for your accountant</li><li>Done in 3 weeks</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head"><h2>How it works</h2></div>
+      <div class="grid3 steps">
+        <div class="step"><h3>Book a call</h3><p>Fifteen minutes. We look at where your books are today.</p></div>
+        <div class="step"><h3>Connect your bank</h3><p>Read-only access. We never move money.</p></div>
+        <div class="step"><h3>Get your numbers</h3><p>Your reports land in your inbox by the 5th of every month.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>What clients say</h2><p>Fictional quotes, like everything on this page.</p></div>
+      <div class="grid3">
+        <figure class="card quote"><p>“I stopped dreading the end of the month.”</p><footer>Owner, a coffee roaster</footer></figure>
+        <figure class="card quote"><p>“They found $4,100 of expenses my old tool missed.”</p><footer>Founder, a design studio</footer></figure>
+        <figure class="card quote"><p>“Same-day answers. Every time.”</p><footer>Manager, a physio clinic</footer></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" style="background: var(--surface); border-top: 1px solid var(--line);">
+    <div class="wrap book">
+      <div>
+        <h2>Book a free 15-minute call</h2>
+        <p class="lead" style="margin-top:14px">Tell us a little about your business. We reply within one business day.</p>
+      </div>
+      <form id="lead-form" novalidate>
+        <label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="name" required maxlength="80">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="120">
+        <label for="company">Company</label>
+        <input id="company" name="company" autocomplete="organization" maxlength="120">
+        <label for="plan">Which plan sounds right?</label>
+        <select id="plan" name="plan">
+          <option>Not sure yet</option><option>Starter</option><option>Growth</option><option>Catch-up</option>
+        </select>
+        <label for="message">Anything we should know?</label>
+        <textarea id="message" name="message" maxlength="1000"></textarea>
+        <input class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit">Request my call</button>
+        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap" style="max-width: 760px;">
+      <div class="section-head"><h2>Questions</h2></div>
+      <details><summary>Do I need special software?</summary><p>No. We work with whatever you already use.</p></details>
+      <details><summary>Can I cancel?</summary><p>Yes, any month, with one email.</p></details>
+      <details><summary>Is my data safe?</summary><p>Bank access is read-only, and we never move money.</p></details>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© Quillfox Bookkeeping (a fictional company)</span>
+      <span>Built with Claude Code, no code written by a human.</span>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
