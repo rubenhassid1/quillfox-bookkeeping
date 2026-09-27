@@ -3,214 +3,215 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quillfox Bookkeeping — books done, every month</title>
-  <meta name="description" content="Monthly bookkeeping for small businesses. Clean books, one simple price, and a real person who answers. (Fictional business built for the Claude Code For Dummies guide.)">
+  <title>Quillfox Bookkeeping</title>
+  <meta name="description" content="Monthly bookkeeping for small businesses: books reconciled to the cent by the 5th, one flat price. (Fictional business built for the Claude Code For Dummies guide.)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f3d2e'/%3E%3Cpath d='M9 22c3-9 9-13 15-13-2 6-6 11-15 13z' fill='%23f3c87a'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e3b2e'/%3E%3Cpath d='M8 17l5 5 11-12' stroke='%23e8574a' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
-      --bg: #f7f3ec;
-      --surface: #fffdf9;
-      --ink: #1d231f;
-      --muted: #5b645e;
-      --line: #e4ddd1;
-      --brand: #1f3d2e;
-      --brand-ink: #f7f3ec;
-      --accent: #c9822b;
-      --radius: 14px;
+      /* Ledger paper, ink, the green rules of an accounting pad, and the red pencil accountants tick with. */
+      --paper: #eef3ec;
+      --sheet: #ffffff;
+      --ink: #14211a;
+      --soft-ink: #4d5c53;
+      --rule: #bfd3bf;
+      --deep: #0e3b2e;
+      --tick: #c2362b;
+      --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0; background: var(--bg); color: var(--ink);
-      font: 17px/1.6 Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-    .demo-note {
-      background: var(--brand); color: var(--brand-ink); font-size: 13px; text-align: center; padding: 8px 16px;
+    :focus-visible { outline: 3px solid var(--tick); outline-offset: 3px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+    .note { background: var(--deep); color: #dbe7df; font-size: 14px; padding-block: 9px; }
+    .note a { color: #fff; }
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; letter-spacing: -.02em; text-decoration: none; }
+    .brand svg { width: 30px; height: 30px; flex: none; }
+    .top nav { display: flex; align-items: center; gap: 24px; font-size: 16px; }
+    .top nav a { text-decoration: none; color: var(--soft-ink); }
+    .top nav a:hover { color: var(--ink); }
+    .cta { display: inline-block; background: var(--deep); color: #fff; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 8px; border: 0; font: inherit; font-weight: 700; cursor: pointer; }
+    .cta:hover { background: #0a2c22; }
+    .top nav .cta { color: #fff; }
+
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; padding-block: 56px 96px; }
+    h1, h2, h3 { margin: 0; letter-spacing: -.03em; line-height: 1.02; text-wrap: balance; }
+    h1 { font-size: clamp(46px, 7.2vw, 86px); font-weight: 800; }
+    h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; }
+    h3 { font-size: 22px; letter-spacing: -.01em; }
+    .hero p { font-size: 21px; color: var(--soft-ink); max-width: 30ch; margin: 22px 0 32px; }
+    .hero .actions { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+    .hero .actions a.plain { color: var(--deep); font-weight: 700; text-underline-offset: 4px; }
+
+    /* The adding-machine tape: the one memorable thing on the page. */
+    .tape {
+      background: var(--sheet); border-radius: 4px; padding: 26px 28px 30px;
+      font-family: var(--mono); font-size: 15px; box-shadow: 0 1px 0 var(--rule), 0 24px 50px -28px rgba(14,59,46,.45);
+      position: relative;
     }
-    .demo-note a { color: #f3c87a; }
-    header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
-    .logo { display: flex; align-items: center; gap: 10px; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 21px; text-decoration: none; }
-    .logo svg { width: 30px; height: 30px; }
-    nav a { text-decoration: none; color: var(--muted); margin-left: 22px; font-size: 15px; }
-    nav a:hover { color: var(--ink); }
-    .btn {
-      display: inline-block; background: var(--brand); color: var(--brand-ink); text-decoration: none;
-      padding: 14px 22px; border-radius: 999px; font-weight: 600; font-size: 16px; border: 0; cursor: pointer;
-      transition: transform .15s ease, background .15s ease;
-    }
-    .btn:hover { background: #173024; transform: translateY(-1px); }
-    .btn.ghost { background: transparent; color: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
-    .hero { padding: 72px 0 88px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
-    .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
-    h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.12; margin: 0; }
-    h1 { font-size: clamp(40px, 6vw, 64px); letter-spacing: -.02em; margin: 14px 0 20px; }
-    h2 { font-size: clamp(30px, 4vw, 42px); letter-spacing: -.01em; }
-    .lead { font-size: 20px; color: var(--muted); max-width: 34ch; margin: 0 0 32px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-card {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px;
-      box-shadow: 0 30px 60px -30px rgba(31,61,46,.25);
-    }
-    .hero-card .row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
-    .hero-card .row:last-child { border-bottom: 0; }
-    .hero-card .ok { color: var(--brand); font-weight: 600; }
-    .hero-card small { color: var(--muted); display: block; margin-bottom: 8px; }
-    section { padding: 88px 0; }
-    .section-head { max-width: 620px; margin-bottom: 44px; }
-    .section-head p { color: var(--muted); font-size: 18px; margin: 14px 0 0; }
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
-    .card h3 { font-size: 23px; margin-bottom: 8px; }
-    .price { font-family: Fraunces, Georgia, serif; font-size: 34px; margin: 18px 0 4px; }
-    .price span { font-family: Inter, sans-serif; font-size: 15px; color: var(--muted); }
-    .card ul { padding-left: 18px; color: var(--muted); margin: 14px 0 0; }
-    .card.featured { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
-    .card.featured ul, .card.featured .price span { color: #cfd8d2; }
-    .tag { display: inline-block; font-size: 12px; font-weight: 600; background: #f3c87a; color: var(--brand); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
-    .steps { counter-reset: step; }
-    .step { position: relative; padding-top: 56px; }
-    .step::before {
-      counter-increment: step; content: counter(step); position: absolute; top: 0; left: 0;
-      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-      background: var(--surface); border: 1px solid var(--line); font-family: Fraunces, serif; font-weight: 600;
-    }
-    .step p, .quote p { color: var(--muted); margin: 8px 0 0; }
-    .quote { font-size: 18px; }
-    .quote p { color: var(--ink); font-size: 19px; }
-    .quote footer { margin-top: 16px; color: var(--muted); font-size: 14px; }
-    .book { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: start; }
-    form { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 30px; }
-    label { display: block; font-weight: 500; font-size: 15px; margin: 0 0 6px; }
+    .tape::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px;
+      background: radial-gradient(circle at 10px -4px, transparent 10px, var(--sheet) 11px) 0 0 / 20px 10px repeat-x; }
+    .tape .head { font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--soft-ink); height: 36px; display: flex; justify-content: space-between; }
+    .tape .line { display: grid; grid-template-columns: 1fr auto 22px; align-items: center; gap: 10px; height: 40px; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+    .tape .line span:nth-child(2) { text-align: right; }
+    .tape .tick { color: var(--tick); font-family: var(--sans); font-weight: 800; font-size: 19px; transform: rotate(-8deg); display: inline-block; }
+    .tape .total { border-top: 2px solid var(--ink); border-bottom: 0; margin-top: 6px; font-weight: 500; }
+    .tape .zero { color: var(--deep); font-weight: 500; }
+
+    section { padding-block: 88px; }
+    .intro { max-width: 640px; margin-bottom: 40px; }
+    .intro p { color: var(--soft-ink); font-size: 19px; margin: 16px 0 0; }
+
+    /* Pricing as a ledger: rows, columns, figures that line up. */
+    .ledger { width: 100%; border-collapse: collapse; background: var(--sheet); border-radius: 6px; overflow: hidden; }
+    .ledger th, .ledger td { text-align: left; padding: 22px 24px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .ledger thead th { font-size: 15px; font-weight: 500; color: var(--soft-ink); border-bottom: 2px solid var(--ink); }
+    .ledger td.fig { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 20px; }
+    .ledger td.fig small { font-family: var(--sans); color: var(--soft-ink); font-size: 14px; }
+    .ledger tr:last-child td { border-bottom: 0; }
+    .ledger .plan { font-weight: 800; font-size: 21px; }
+    .ledger .pick { color: var(--tick); font-weight: 700; font-size: 14px; display: block; margin-top: 4px; }
+    .ledger td ul { margin: 0; padding-left: 18px; color: var(--soft-ink); font-size: 16px; }
+    .scroll { overflow-x: auto; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+    .steps li { counter-increment: s; border-top: 2px solid var(--ink); padding-top: 18px; }
+    .steps li::before { content: counter(s); font-family: var(--mono); color: var(--tick); font-size: 15px; display: block; margin-bottom: 10px; }
+    .steps p { color: var(--soft-ink); margin: 8px 0 0; }
+
+    .voices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .voices blockquote { margin: 0; font-size: 23px; font-weight: 700; letter-spacing: -.015em; line-height: 1.3; }
+    .voices figcaption { color: var(--soft-ink); font-size: 15px; margin-top: 12px; }
+    .voices figure { margin: 0; }
+
+    .book { background: var(--deep); color: #eaf1ec; }
+    .book .grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+    .book .intro p { color: #b9ccc0; }
+    form { background: var(--sheet); color: var(--ink); border-radius: 6px; padding: 30px; display: grid; gap: 4px; }
+    label { font-weight: 700; font-size: 15px; margin-top: 12px; }
     input, select, textarea {
-      width: 100%; font: inherit; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--line);
-      background: #fff; color: var(--ink); margin-bottom: 18px;
+      width: 100%; font: inherit; font-size: 17px; padding: 10px 2px; border: 0; border-bottom: 1.5px solid var(--rule);
+      background: transparent; color: var(--ink); border-radius: 0;
     }
-    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-    textarea { min-height: 96px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--tick); }
+    textarea { min-height: 84px; resize: vertical; }
     .hp { position: absolute; left: -5000px; }
-    .form-msg { margin: 14px 0 0; font-size: 15px; min-height: 1.2em; }
-    .form-msg.ok { color: var(--brand); font-weight: 600; }
-    .form-msg.err { color: #a2332b; }
-    details { border-top: 1px solid var(--line); padding: 20px 0; }
-    details:last-child { border-bottom: 1px solid var(--line); }
-    summary { cursor: pointer; font-weight: 600; font-size: 18px; list-style: none; }
+    form .cta { margin-top: 22px; justify-self: start; }
+    .form-msg { margin: 12px 0 0; font-size: 15px; min-height: 1.3em; }
+    .form-msg.ok { color: var(--deep); font-weight: 700; }
+    .form-msg.err { color: var(--tick); }
+
+    details { border-top: 1px solid var(--rule); padding-block: 20px; }
+    details:last-of-type { border-bottom: 1px solid var(--rule); }
+    summary { cursor: pointer; font-weight: 700; font-size: 20px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
     summary::-webkit-details-marker { display: none; }
-    summary::after { content: "+"; float: right; color: var(--accent); font-size: 22px; line-height: 1; }
-    details[open] summary::after { content: "–"; }
-    details p { color: var(--muted); margin: 12px 0 0; }
-    .site-footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
-    .site-footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    @media (max-width: 860px) {
-      .hero, .book { grid-template-columns: 1fr; gap: 36px; }
-      .hero { padding: 40px 0 64px; }
-      .grid3 { grid-template-columns: 1fr; }
-      nav a:not(.btn) { display: none; }
-      section { padding: 64px 0; }
+    summary::after { content: "+"; color: var(--tick); font-weight: 800; }
+    details[open] summary::after { content: "−"; }
+    details p { color: var(--soft-ink); margin: 10px 0 0; }
+
+    .foot { padding-block: 36px 56px; color: var(--soft-ink); font-size: 15px; border-top: 1px solid var(--rule); }
+    .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+    @media (max-width: 880px) {
+      .hero, .book .grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero { padding-block: 32px 72px; }
+      .steps, .voices { grid-template-columns: 1fr; gap: 28px; }
+      .top nav a:not(.cta) { display: none; }
+      section { padding-block: 64px; }
+      .ledger th, .ledger td { padding: 16px 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="demo-note">Fictional business, built with Claude Code for the <em>Claude Code For Dummies</em> guide. Nothing here is for sale.</div>
+  <div class="note"><div class="wrap">Fictional business, built with Claude Code for the <em>Claude Code For Dummies</em> guide. Nothing here is for sale. <a href="/before.html">See the first version</a>.</div></div>
 
   <div class="wrap">
-    <header>
-      <a class="logo" href="#top" aria-label="Quillfox Bookkeeping home">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1f3d2e"/><path d="M9 22c3-9 9-13 15-13-2 6-6 11-15 13z" fill="#f3c87a"/></svg>
+    <header class="top">
+      <a class="brand" href="#top" aria-label="Quillfox Bookkeeping home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#0e3b2e"/><path d="M8 17l5 5 11-12" stroke="#e8574a" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Quillfox
       </a>
-      <nav>
+      <nav aria-label="Main">
         <a href="#pricing">Pricing</a>
         <a href="#how">How it works</a>
-        <a href="#faq">FAQ</a>
-        <a class="btn" href="#book">Book a call</a>
+        <a href="#faq">Questions</a>
+        <a class="cta" href="#book">Book a call</a>
       </nav>
     </header>
 
-    <main id="top">
-      <div class="hero">
-        <div>
-          <div class="eyebrow">Bookkeeping for small businesses</div>
-          <h1>Your books, done. Every month.</h1>
-          <p class="lead">Clean numbers by the 5th, one flat price, and a real person who answers your email the same day.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#book">Book a free 15-minute call</a>
-            <a class="btn ghost" href="#pricing">See pricing</a>
-          </div>
+    <main id="top" class="hero">
+      <div>
+        <h1>Your books, balanced to the cent. Every month.</h1>
+        <p>We reconcile every account by the 5th, send you three numbers that matter, and answer your email the same day.</p>
+        <div class="actions">
+          <a class="cta" href="#book">Book a free 15-minute call</a>
+          <a class="plain" href="#pricing">See the three plans</a>
         </div>
-        <div class="hero-card" aria-label="Example monthly close">
-          <small>September close · example client</small>
-          <div class="row"><span>Bank &amp; cards reconciled</span><span class="ok">Done</span></div>
-          <div class="row"><span>Receipts matched</span><span class="ok">312 / 312</span></div>
-          <div class="row"><span>Profit &amp; loss sent</span><span class="ok">Oct 4</span></div>
-          <div class="row"><span>Questions for you</span><span class="ok">2</span></div>
-        </div>
+      </div>
+      <div class="tape" role="img" aria-label="An example September close: bank, cards, payroll and receipts all reconciled, difference zero dollars.">
+        <div class="head"><span>September close</span><span>example client</span></div>
+        <div class="line"><span>Bank account</span><span>48,210.55</span><span class="tick">✓</span></div>
+        <div class="line"><span>Credit cards</span><span>−6,904.12</span><span class="tick">✓</span></div>
+        <div class="line"><span>Payroll</span><span>−18,450.00</span><span class="tick">✓</span></div>
+        <div class="line"><span>Receipts matched</span><span>312 of 312</span><span class="tick">✓</span></div>
+        <div class="line total"><span>Difference</span><span class="zero">$0.00</span><span class="tick">✓</span></div>
       </div>
     </main>
   </div>
 
   <section id="pricing">
     <div class="wrap">
-      <div class="section-head">
-        <h2>Three plans. No surprises.</h2>
-        <p>Pick by monthly spend. Switch any time.</p>
+      <div class="intro">
+        <h2>Three plans, priced by what you spend.</h2>
+        <p>Pick the row that matches your monthly expenses. Switch any month.</p>
       </div>
-      <div class="grid3">
-        <div class="card">
-          <h3>Starter</h3>
-          <div>Under $20k a month in expenses</div>
-          <div class="price">$290 <span>/ month</span></div>
-          <ul><li>Monthly reconciliation</li><li>Profit &amp; loss + balance sheet</li><li>Email support</li></ul>
-        </div>
-        <div class="card featured">
-          <span class="tag">Most popular</span>
-          <h3>Growth</h3>
-          <div>$20k–$100k a month</div>
-          <div class="price">$590 <span>/ month</span></div>
-          <ul><li>Everything in Starter</li><li>Payroll &amp; sales tax filing</li><li>A 30-minute review call each month</li></ul>
-        </div>
-        <div class="card">
-          <h3>Catch-up</h3>
-          <div>Books behind? We fix the past.</div>
-          <div class="price">$900 <span>/ one-time</span></div>
-          <ul><li>Up to 12 months cleaned up</li><li>Ready for your accountant</li><li>Done in 3 weeks</li></ul>
-        </div>
+      <div class="scroll">
+        <table class="ledger">
+          <thead><tr><th scope="col">Plan</th><th scope="col">Your monthly expenses</th><th scope="col">What you get</th><th scope="col">Price</th></tr></thead>
+          <tbody>
+            <tr><td class="plan">Starter</td><td>Under $20,000</td><td><ul><li>Every account reconciled</li><li>Profit &amp; loss and balance sheet</li><li>Email answers the same day</li></ul></td><td class="fig">$290 <small>a month</small></td></tr>
+            <tr><td class="plan">Growth<span class="pick">What most clients pick</span></td><td>$20,000 to $100,000</td><td><ul><li>Everything in Starter</li><li>Payroll and sales tax filed</li><li>A 30-minute review call each month</li></ul></td><td class="fig">$590 <small>a month</small></td></tr>
+            <tr><td class="plan">Catch-up</td><td>Books months behind</td><td><ul><li>Up to 12 months cleaned up</li><li>Ready to hand to your accountant</li><li>Done in 3 weeks</li></ul></td><td class="fig">$900 <small>once</small></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <section id="how" style="background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <section id="how" style="background: var(--sheet);">
     <div class="wrap">
-      <div class="section-head"><h2>How it works</h2></div>
-      <div class="grid3 steps">
-        <div class="step"><h3>Book a call</h3><p>Fifteen minutes. We look at where your books are today.</p></div>
-        <div class="step"><h3>Connect your bank</h3><p>Read-only access. We never move money.</p></div>
-        <div class="step"><h3>Get your numbers</h3><p>Your reports land in your inbox by the 5th of every month.</p></div>
-      </div>
+      <div class="intro"><h2>How it works</h2></div>
+      <ol class="steps">
+        <li><h3>Book a call</h3><p>Fifteen minutes to see where your books are today.</p></li>
+        <li><h3>Connect your bank</h3><p>Read-only access. We can see transactions and never move money.</p></li>
+        <li><h3>Get your numbers</h3><p>Reports land in your inbox by the 5th, with any questions for you marked.</p></li>
+      </ol>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <div class="section-head"><h2>What clients say</h2><p>Fictional quotes, like everything on this page.</p></div>
-      <div class="grid3">
-        <figure class="card quote"><p>“I stopped dreading the end of the month.”</p><footer>Owner, a coffee roaster</footer></figure>
-        <figure class="card quote"><p>“They found $4,100 of expenses my old tool missed.”</p><footer>Founder, a design studio</footer></figure>
-        <figure class="card quote"><p>“Same-day answers. Every time.”</p><footer>Manager, a physio clinic</footer></figure>
+      <div class="intro"><h2>What clients say</h2><p>Fictional quotes, like everything on this page.</p></div>
+      <div class="voices">
+        <figure><blockquote>“I stopped dreading the end of the month.”</blockquote><figcaption>Owner of a coffee roaster</figcaption></figure>
+        <figure><blockquote>“They found $4,100 of expenses my old tool missed.”</blockquote><figcaption>Founder of a design studio</figcaption></figure>
+        <figure><blockquote>“I get an answer the same day. Every time.”</blockquote><figcaption>Manager of a physio clinic</figcaption></figure>
       </div>
     </div>
   </section>
 
-  <section id="book" style="background: var(--surface); border-top: 1px solid var(--line);">
-    <div class="wrap book">
-      <div>
+  <section id="book" class="book">
+    <div class="wrap grid">
+      <div class="intro">
         <h2>Book a free 15-minute call</h2>
-        <p class="lead" style="margin-top:14px">Tell us a little about your business. We reply within one business day.</p>
+        <p>Tell us a little about your business. We reply within one business day.</p>
       </div>
       <form id="lead-form" novalidate>
         <label for="name">Your name</label>
@@ -226,15 +227,15 @@
         <label for="message">Anything we should know?</label>
         <textarea id="message" name="message" maxlength="1000"></textarea>
         <input class="hp" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn" type="submit">Request my call</button>
+        <button class="cta" type="submit">Request my call</button>
         <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
 
   <section id="faq">
-    <div class="wrap" style="max-width: 760px;">
-      <div class="section-head"><h2>Questions</h2></div>
+    <div class="wrap" style="max-width: 780px;">
+      <div class="intro"><h2>Questions</h2></div>
       <details><summary>Do I need special software?</summary><p>No. We work with whatever you already use.</p></details>
       <details><summary>Can I cancel?</summary><p>Yes, any month, with one email.</p></details>
       <details><summary>Is my data safe?</summary><p>Bank access is read-only, and we never move money.</p></details>
@@ -242,10 +243,10 @@
     </div>
   </section>
 
-  <footer class="site-footer">
+  <footer class="foot">
     <div class="wrap">
-      <span>© Quillfox Bookkeeping (a fictional company)</span>
-      <span>Built with Claude Code, no code written by a human.</span>
+      <span>© Quillfox Bookkeeping, a fictional company</span>
+      <span>Built with Claude Code. No human wrote the code.</span>
     </div>
   </footer>
 
